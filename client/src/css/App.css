@@ -1,0 +1,163 @@
+body {
+  margin: 0%;
+}
+
+.App {
+  overflow: hidden;
+}
+
+.mainHeadEle {
+  /* background-color: #050100;
+  background-color: #4e8aa4; */
+  background-color: #353535;
+
+  padding: 0.9% 6%;
+}
+
+.mainHeadEle h1 {
+  color: #d2d7df;
+  color: #dde1e7;
+}
+
+.mainDivEle {
+  padding-top: 1.2%;
+  padding-bottom: 1%;
+}
+
+.twoDivs {
+  margin: 0;
+  padding: 1% 1%;
+}
+
+.options-panel {
+  padding: 0;
+}
+
+.indiOptionEle {
+  padding-bottom: 1%;
+}
+
+.indiOptionEle option:checked {
+  background-color: #d2d7df;
+}
+
+.custSelect {
+  background-color: #d2d7df;
+}
+
+.custSelect:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.defaultBtnEle {
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.defButton {
+  background-color: #3587a4;
+  color: white;
+  padding: 0.3em 0.5rem;
+  border-radius: 0.25em;
+}
+
+.defButton:hover {
+  background-color: #5d9fb6;
+}
+
+.defButtonDark {
+  background-color: #892cdc;
+  color: white;
+  padding: 0.3em 0.5rem;
+  border-radius: 0.25em;
+  border: #892cdc;
+}
+
+.defButtonDark:hover {
+  background-color: #52057b;
+  border: #52057b;
+}
+
+.editorDiv textarea {
+  width: 100%;
+  height: 400px;
+  resize: none;
+}
+
+.editorDivDark textarea {
+  background-color: #1f1b24;
+  width: 100%;
+  height: 400px;
+  resize: none;
+  color: white;
+}
+
+.editorDivDark label {
+  color: white;
+}
+
+.codeArea {
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.runButton {
+  background-color: #3587a4;
+  color: white;
+  padding: 0.4em 1em;
+  border-radius: 0.25em;
+}
+
+.runButton:hover {
+  background-color: #5d9fb6;
+}
+
+.runButtonDark {
+  background-color: #892cdc;
+  color: white;
+  padding: 0.4em 1em;
+  border-radius: 0.25em;
+  border: #892cdc;
+}
+
+.runButtonDark:hover {
+  background-color: #52057b;
+  border: #52057b;
+}
+
+.outputDiv {
+  border: 1px solid black;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.outputDiv p {
+  margin-bottom: 2px;
+}
+
+.outputDivDark {
+  background-color: #1f1b24;
+  border: 1px solid white;
+  overflow: scroll;
+  overflow-x: hidden;
+  color: white;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+  .mainDivEle {
+    padding: 1% 5%;
+  }
+
+  .twoDivs {
+    padding: 6% 1%;
+  }
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+  .twoDivs {
+    padding: 4% 2%;
+  }
+}
