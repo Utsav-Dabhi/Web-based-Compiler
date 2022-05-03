@@ -6,10 +6,25 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Container, Row, Col } from "react-bootstrap";
+import AceEditor from "react-ace";
+
+// lang mode for ace
+import "brace/mode/c_cpp";
+import "brace/mode/python";
+import "brace/mode/java";
+
+// theme for ace
+import "brace/theme/github";
+import "brace/theme/dracula";
+import "brace/theme/twilight";
+
+// auto complete for ace
+import "brace/ext/language_tools";
 
 // custom files
 import Br from "../src/components/Br";
-import stubs from "./defaultStubs";
+import stubs from "./data/defaultStubs";
+import { themes } from "./data/themes";
 
 function App() {
   const [code, setCode] = useState("");
@@ -19,15 +34,16 @@ function App() {
   const [jobId, setJobId] = useState("");
   const [jobDetails, setJobDetails] = useState(null);
   const [theme, setTheme] = useState("light");
+  const [editorTheme, setEditorTheme] = useState("github");
+  const [editorMode, setEditorMode] = useState("c_cpp");
 
   const editorDiv = useRef(null);
   const outputDiv = useRef(null);
-  let eleHeight;
 
   // for changing the height of output div
   // according to editor div
   useEffect(() => {
-    eleHeight = editorDiv.current.getBoundingClientRect().height;
+    let eleHeight = editorDiv.current.getBoundingClientRect().height;
 
     outputDiv.current.style.maxHeight = `${eleHeight}px`;
   }, []);
@@ -46,7 +62,8 @@ function App() {
   // for dark mode
   useEffect(() => {
     if (theme === "dark") {
-      document.body.style.backgroundColor = "#212121";
+      // document.body.style.backgroundColor = "#212121";
+      document.body.style.backgroundColor = "#404040";
     } else {
       document.body.style.backgroundColor = "#fff";
     }
@@ -153,7 +170,7 @@ function App() {
   return (
     <div className="App">
       <div className="mainHeadEle">
-        <h1>Compiley</h1>
+        <h2>Compiley</h2>
       </div>
 
       <div className="mainDivEle">
@@ -181,12 +198,25 @@ function App() {
                         if (response) {
                           setLanguage(e.target.value);
                         }
+
+                        if (response && e.target.value === "py") {
+                          setEditorMode("python");
+                        }
+
+                        if (response && e.target.value === "cpp") {
+                          setEditorMode("c_cpp");
+                        }
+
+                        if (response && e.target.value === "java") {
+                          setEditorMode("java");
+                        }
                       }}
                     >
                       <option value="cpp" className="custOption">
                         C++
                       </option>
                       <option value="py">Python</option>
+                      <option value="java">Java</option>
                     </select>
                   </Col>
                   <Col md={6} className="indiOptionEle">
@@ -198,39 +228,70 @@ function App() {
                         setTheme(e.target.value);
                       }}
                     >
-                      <option value="light">Light</option>
-                      <option value="dark">Dark</option>
+                      {themes.map((theme) => {
+                        const { id, type, name } = theme;
+                        return (
+                          <option key={id} value={type} data-id={id}>
+                            {name}
+                          </option>
+                        );
+                      })}
                     </select>
                   </Col>
                 </Row>
               </Container>
-              <div className="defaultBtnEle">
-                <button
-                  onClick={setDefaultLanguage}
-                  className={`${
-                    theme === "light" ? "defButton" : "defButtonDark"
-                  }`}
-                >
-                  Set default
-                </button>
+              <div className="btnContainer">
+                <div className="defaultBtnEle">
+                  <button
+                    onClick={setDefaultLanguage}
+                    className={`${
+                      theme === "light" ? "defButton" : "defButtonDark"
+                    }`}
+                  >
+                    Set default
+                  </button>
+                </div>
+                <div className="defaultBtnEle">
+                  <button
+                    type="button"
+                    className={`${
+                      theme === "light" ? "defButton" : "defButtonDark"
+                    }`}
+                    onClick={handleSubmit}
+                  >
+                    Run
+                  </button>
+                </div>
+                <div className="defaultBtnEle">
+                  <button
+                    type="button"
+                    className={`${
+                      theme === "light" ? "defButton" : "defButtonDark"
+                    }`}
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
+
               <div className="codeArea">
-                <textarea
+                {/* <textarea
                   value={code}
                   onChange={(e) => {
                     setCode(e.target.value);
                   }}
-                ></textarea>
+                ></textarea> */}
+
+                <AceEditor
+                  className="aceEditor"
+                  mode={editorMode}
+                  theme={`${theme === "light" ? "github" : "dracula"}`}
+                  width="100%"
+                  height="490px"
+                  fontSize="small"
+                  value={code}
+                />
               </div>
-              <button
-                type="button"
-                className={`${
-                  theme === "light" ? "defButton" : "defButtonDark"
-                }`}
-                onClick={handleSubmit}
-              >
-                Run
-              </button>
             </Col>
             <Col
               md={6}
